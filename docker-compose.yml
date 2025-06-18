@@ -1,36 +1,20 @@
 version: '3'
 services:
-  db:
-    image: postgres:15
-    environment:
-      POSTGRES_DB: mydb
-      POSTGRES_USER: user
-      POSTGRES_PASSWORD: password
-    ports:
-      - "5432:5432"
-
-  web:
-    build: .
-    command: python manage.py runserver 0.0.0.0:8000
-    ports:
-      - "8000:8000"
-    depends_on:
-      - db
-    environment:
-      DATABASE_URL: postgres://user:password@db:5432/mydb
-    volumes:
-      - .:/usr/src/app
-
   redis:
     image: redis:7
+    command: ["redis-server", "--requirepass", "foobared"]
     ports:
       - "6379:6379"
 
   worker:
     build: .
-    command: python manage.py rqworker
+    volumes:
+      - .:/app
+    command: python manage.py rqworker default
     depends_on:
       - redis
-      - web
-    volumes:
-      - .:/usr/src/app
+    environment:
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - REDIS_DB=0
+      - REDIS_PASSWORD=foobared
