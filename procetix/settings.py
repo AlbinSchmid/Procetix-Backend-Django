@@ -151,9 +151,3 @@ RQ_QUEUES = {
         'DEFAULT_TIMEOUT': 360,
     }
 }
-
-EMAIL_HOST = 'sandbox.smtp.mailtrap.io'
-EMAIL_HOST_USER = '9076d89c6684e1'
-EMAIL_HOST_PASSWORD = 'e9987d0140a198'
-EMAIL_PORT = '2525'
-EMAIL_USE_TLS = True
