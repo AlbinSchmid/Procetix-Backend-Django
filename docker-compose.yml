@@ -1,20 +1,54 @@
-version: '3'
 services:
+
+  db:
+    image: postgres:latest
+    container_name: procetix_database
+    environment:
+      POSTGRES_DB: ${DB_NAME}
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
   redis:
-    image: redis:7
-    command: ["redis-server", "--requirepass", "foobared"]
+    image: redis:latest
+    container_name: procetix_redis
+    volumes:
+      - redis_data:/data
+
+  web:
+    build:
+      context: .
+      dockerfile: backend.Dockerfile
+    env_file: .env
+    container_name: procetix_web
+    environment:
+      DJANGO_MODE: web
+    volumes:
+      - .:/app
+      - procetix_static:/app/static
     ports:
-      - "6379:6379"
+      - "8000:8000"
+    depends_on:
+      - db
+      - redis
 
   worker:
-    build: .
+    build:
+      context: .
+      dockerfile: backend.Dockerfile
+    env_file: .env
+    container_name: proxetix_worker
+    environment:
+      DJANGO_MODE: worker 
+    depends_on:
+      - redis
+      - db
     volumes:
       - .:/app
     command: python manage.py rqworker default
-    depends_on:
-      - redis
-    environment:
-      - REDIS_HOST=redis
-      - REDIS_PORT=6379
-      - REDIS_DB=0
-      - REDIS_PASSWORD=foobared
+
+volumes:
+  postgres_data:
+  redis_data:
+  procetix_static:

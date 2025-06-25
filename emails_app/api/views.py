@@ -22,7 +22,7 @@ class ContactEmailView(APIView):
 
         queue = django_rq.get_queue('default', autocommit=True)
         queue.enqueue(send_contact_email, name, email, phone, message)
-        return Response({"message": "Contact email submitted successfully"}, status=201)
+        return Response({"message": "Contact email submitted succesfuly"}, status=201)
 
 
 class ProjectEmailView(APIView):

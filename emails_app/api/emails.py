@@ -15,24 +15,19 @@ def send_contact_email(name, email, phone, message):
         phone (str): Phone number of the person.
         message (str): Message content from the contact form.
     """
-    # print(
-    #     f"test")
-    # subject = f"Contact Form Submission from {name}"
-    # from_email = 'noreply@procetix.com'
-    # to = ['contact@albin-schmid.com']
+    subject = f"Contact Form Submission from {name}"
+    from_email = 'noreply@procetix.com'
+    to = ['contact@albin-schmid.com']
 
-    # html_content = render_to_string('emails/contact.html', {
-    #     'name': name,
-    #     'email': email,
-    #     'phone': phone,
-    #     'message': message
-    # })
+    html_content = render_to_string('emails/contact.html', {
+        'name': name,
+        'email': email,
+        'phone': phone,
+        'message': message
+    })
 
-    # text_content = 'Neue Kontaktanfrage'
+    text_content = 'Neue Kontaktanfrage'
 
-    # email = EmailMultiAlternatives(subject, text_content, from_email, to)
-    # email.attach_alternative(html_content, "text/html")
-    # email.send()
-
-    print(
-        f"Sending contact email:\nName: {name}\nEmail: {email}\nPhone: {phone}\nMessage: {message}")
+    email = EmailMultiAlternatives(subject, text_content, from_email, to)
+    email.attach_alternative(html_content, "text/html")
+    email.send()
