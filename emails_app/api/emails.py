@@ -5,7 +5,7 @@ from django.core.mail import EmailMultiAlternatives
 
 
 @job('default', retry=Retry(max=3, interval=[10, 30, 60]))
-def send_contact_email(name, email, phone, message):
+def send_contact_email(data):
     """
     Function to send a contact email.
 
@@ -15,15 +15,16 @@ def send_contact_email(name, email, phone, message):
         phone (str): Phone number of the person.
         message (str): Message content from the contact form.
     """
-    subject = f"Contact Form Submission from {name}"
+    print("Sending contact email with data:", data)
+    subject = f"Contact Form Submission from {data.get('name')}"
     from_email = 'noreply@procetix.com'
     to = ['contact@albin-schmid.com']
 
     html_content = render_to_string('emails/contact.html', {
-        'name': name,
-        'email': email,
-        'phone': phone,
-        'message': message
+        'name': data.get('name'),
+        'email': data.get('email'),
+        'phone': data.get('phone'),
+        'message': data.get('message'),
     })
 
     text_content = 'Neue Kontaktanfrage'
