@@ -15,17 +15,11 @@ def send_contact_email(data):
         phone (str): Phone number of the person.
         message (str): Message content from the contact form.
     """
-    print("Sending contact email with data:", data)
     subject = f"Contact Form Submission from {data.get('name')}"
     from_email = 'noreply@procetix.com'
     to = ['contact@albin-schmid.com']
 
-    html_content = render_to_string('emails/contact.html', {
-        'name': data.get('name'),
-        'email': data.get('email'),
-        'phone': data.get('phone'),
-        'message': data.get('message'),
-    })
+    html_content = render_to_string('emails/contact.html', data)
 
     text_content = 'Neue Kontaktanfrage'
 

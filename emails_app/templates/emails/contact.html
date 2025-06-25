@@ -1,39 +1,87 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <meta charset="UTF-8">
+  <head>
+    <meta charset="UTF-8" />
     <title>Neue Kontaktanfrage</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #ffffff;
-            color: #333333;
-            padding: 20px;
-        }
-        .container {
-            border: 1px solid #e0e0e0;
-            border-radius: 8px;
-            padding: 20px;
-        }
-        h2 {
-            color: #2c3e50;
-        }
-        p {
-            margin: 8px 0;
-        }
-        .label {
-            font-weight: bold;
-        }
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #ffffff;
+        color: #333333;
+        padding: 20px;
+      }
+      .container {
+        border: 1px solid #e0e0e0;
+        border-radius: 8px;
+        padding: 20px;
+      }
+      h2 {
+        color: #2c3e50;
+      }
+      p {
+        margin: 8px 0;
+      }
+      .label {
+        font-weight: bold;
+      }
     </style>
-</head>
-<body>
+  </head>
+  <body>
     <div class="container">
-        <h2>Neue Kontaktanfrage</h2>
-        <p><span class="label">Name:</span> {{ name }}</p>
-        <p><span class="label">E-Mail:</span> {{ email }}</p>
-        <p><span class="label">Telefon:</span> {{ phone }}</p>
-        <p><span class="label">Nachricht:</span> {{ message }}</p>
-        <p>{{ message|linebreaks }}</p>
+      <h2>Neue Kontaktanfrage</h2>
+      <p>
+        <span class="label">Name:</span> {{ name }}
+      </p>
+      <p>
+        <span class="label">E-Mail:</span> {{ email }}
+      </p>
+      <p>
+        <span class="label">Telefon:</span> {{ phone }}
+      </p>
+      {% if processOptimization %}
+      <p>
+        <span class="label">Process Optimization:</span> Yes
+      </p>
+      {% endif %}
+      {% if digitalization %}
+        <p>
+          <span class="label">Digitalization:</span> Yes
+        </p>
+      {% endif %}
+      {% if websiteDevelopment %}
+        <p>
+          <span class="label">Website Development:</span> Yes
+        </p>
+      {% endif %}
+      {% if websiteOptimization %}
+        <p>
+          <span class="label">Website Optimization:</span> Yes
+        </p>
+      {% endif %}
+      {% if consulting %}
+        <p>
+          <span class="label">Consulting:</span> Yes
+        </p>
+      {% endif %}
+      {% if referral %}
+        <p>
+          <span class="label">Referral:</span> {{ referral }}
+        </p>
+      {% endif %}
+      {% if companySize %}
+        <p>
+          <span class="label">Company Size:</span> {{ companySize }}
+        </p>
+      {% endif %}
+      {% if budget %}
+        <p>
+          <span class="label">Budget:</span> {{ budget }}
+        </p>
+      {% endif %}
+      <p>
+        <span class="label">Nachricht:</span> {{ message }}
+      </p>
+      <p>{{ message|linebreaks }}</p>
     </div>
-</body>
+  </body>
 </html>
